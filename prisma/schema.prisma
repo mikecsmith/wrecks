@@ -1,0 +1,109 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+model Ships {
+  id                  Int @id @default(autoincrement())
+  name                String?
+  voyages             Voyages[]
+  flag                String?
+  rig                 String?
+  tonnage             Int?
+  standardisedTonnage Int?
+  yearConstructed     Int?
+  placeRegistered     String?
+  yearRegistered      Int?
+  dateFrom            DateTime?
+  dateTo              DateTime?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
+
+model Voyages {
+  id                                  Int @id @default(autoincrement())
+  tstdId                              Int?
+  ship                                Ships @relation(fields: [shipId], references: [id])
+  shipId                              Int
+  newspapers                          VoyagesNewspapers[]
+  voyageYear                          Int?
+  voyageBegan                         DateTime?
+  voyageTradeBegan                    DateTime?
+  voyageDepartedAfrica                DateTime?
+  voyageArrivedSlaves                 DateTime?
+  voyageEnded                         DateTime?
+  voyageLength                        Int?
+  middlePassageLength                 Int?
+  portDeparted                        String?
+  firstPortPurchase                   String?
+  secondPortPurchase                  String?
+  thirdPortPurchase                   String?
+  majorPortPurchase                   String?
+  firstPortSale                       String?
+  secondPortSale                      String?
+  thirdPortSale                       String?
+  majorPortSale                       String?
+  placeVoyageEnded                    String?
+  slaveResistance                     Boolean @default(value: false)
+  crewOutset                          Int?
+  crewSlaveSale                       Int?
+  crewDeaths                          Int?
+  slaveNumbersIntendedFirstPurchase   Int?
+  slavesCarriedFirstPurchase          Int?
+  slavesCarriedSecondPurchase         Int?
+  slavesCarriedThirdPurchase          Int?
+  totalSlavesEmbarked                 Int?
+  slaveNumbersFirstLanding            Int?
+  slaveNumbersSecondLanding           Int?
+  slaveNumbersThirdLanding            Int?
+  totalSlavesDisembarked              Int?
+  voyageOutcome                       String?
+  voyageOutcomeSlaves                 String?
+  voyageOutcomeCaptured               String?
+  voyageOutcomeOwner                  String?
+  wreckRegion                         String?
+  wreckCountry                        String?
+  wreckLocation                       String?
+  refloated                           Boolean @default(value: false)
+  notes                               String?
+  createdAt                           DateTime @default(now())
+  updatedAt                           DateTime @updatedAt
+}
+
+model Newspapers {
+  id                Int @id @default(autoincrement())
+  newspapers        VoyagesNewspapers[] 
+  name              String
+  url               String?
+  notes             String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model VoyagesNewspapers {
+  id                Int @id @default(autoincrement())
+  voyageId          Int
+  voyage            Voyages @relation(fields: [voyageId], references: [id])
+  newspaperId       Int 
+  newspaper         Newspapers @relation(fields: [newspaperId], references: [id])
+  yearFrom          Int?
+  yearTo            Int?
+  monthFrom         Int?
+  monthTo           Int?
+  dayFrom           Int?
+  dayTo             Int?
+  issue             Int?
+  startPage         Int?
+  endPage           Int?
+  sourceText        String?
+  notes             String?
+  specificLocation  Boolean @default(value: false)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}

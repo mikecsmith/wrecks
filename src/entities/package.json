@@ -1,0 +1,11 @@
+{
+  "name": "@wrecks/entities",
+  "version": "0.1.0",
+  "private": true,
+  "author": "Michael Smith<mike@cadmia.io>",
+  "description": "Entities used by the wrecks code base",
+  "devDependencies": {
+  },
+  "dependencies": {
+  }
+}

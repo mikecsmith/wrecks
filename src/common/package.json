@@ -1,0 +1,11 @@
+{
+  "name": "@wrecks/common",
+  "version": "0.1.0",
+  "private": true,
+  "author": "Michael Smith<mike@cadmia.io>",
+  "description": "Common utilities used by the wrecks code base",
+  "dependencies": {
+    "cls-proxify": "^2.0.0",
+    "winston": "^3.7.2"
+  }
+}
